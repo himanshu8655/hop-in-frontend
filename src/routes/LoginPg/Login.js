@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { signup } from '../../service/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     e.preventDefault();
-    // Implement login functionality
     console.log('Email:', email);
     console.log('Password:', password);
     console.log('Remember Me:', rememberMe);
+    await signup(email, password, "name")
+    navigate('/chat');
+
   };
 
   return (
