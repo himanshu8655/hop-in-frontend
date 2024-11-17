@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import './ForgotPasswordModal.css';
-import { useNavigate } from 'react-router-dom';
 
 const ForgotPasswordModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
-  const navigate = useNavigate();
 
   const handleForgotPassword = (e) => {
     e.preventDefault();
     console.log('Forgot Password Email:', email);
-    // Handle password reset logic here
-    onClose(); // Close the modal after submission
+    // Simulate password reset logic
+    alert("Password reset link sent to your email!");
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -28,10 +27,7 @@ const ForgotPasswordModal = ({ isOpen, onClose }) => {
             required
           />
           <button type="submit">Submit</button>
-          <button
-            type="button"
-            onClick={() => navigate('/login')} // Navigate to the login page
-          >
+          <button type="button" onClick={onClose}>
             Back to Login
           </button>
         </form>
