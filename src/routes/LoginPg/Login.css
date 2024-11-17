@@ -4,14 +4,15 @@
     justify-content: center;
     height: 100vh;
     background-color: #ffd43b;
+    flex-direction: column; /* Ensure content is stacked vertically */
   }
   
   .login-image {
-    margin-right: 2rem;
+    margin-bottom: 1.5rem; /* Add space below the image */
   }
   
   .login-image img {
-    width: 100px;
+    width: 150px; /* Adjust size to fit better */
     height: auto;
   }
   
@@ -64,3 +65,4 @@
   .login-form button:hover {
     background-color: #104e8b;
   }
+  
