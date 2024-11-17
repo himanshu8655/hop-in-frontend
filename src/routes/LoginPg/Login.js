@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { signup } from '../../service/AuthService';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -9,20 +8,20 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
     console.log('Remember Me:', rememberMe);
-    await signup(email, password, "name")
+    // Perform login action (you can update the signup or authentication logic)
     navigate('/chat');
-
   };
 
   return (
     <div className="login-container">
       <div className="login-image">
-        <img src="car-icon.png" alt="Car icon with passengers" />
+        {/* Image is loaded from the public/images folder */}
+        <img src="/images/car-icon.png" alt="Car icon with passengers" />
       </div>
       <form className="login-form" onSubmit={handleLogin}>
         <h1>Hop-In: Seamless Journeys, Every Time!</h1>
@@ -49,6 +48,20 @@ const Login = () => {
           Remember Me
         </label>
         <button type="submit">LOGIN</button>
+        <button
+          type="button"
+          className="secondary-button"
+          onClick={() => navigate('/create-account')}
+        >
+          Create Account
+        </button>
+        <button
+          type="button"
+          className="secondary-button"
+          onClick={() => navigate('/forgot-password')}
+        >
+          Forgot Password
+        </button>
       </form>
     </div>
   );
