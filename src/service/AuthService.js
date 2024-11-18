@@ -54,3 +54,20 @@ export const logout = (navigate) => {
   navigate('/login');
   Alert.success("Logout Successfully!")
 };
+
+export const forgotPassword = async (email) => {
+  try {
+    const response = await axios.post(`${API_URL}/forgot-password`, { email: email });
+    if (response.data.message) {
+      Alert.success(response.data.message);
+    } else {
+      Alert.info("If the email is registered, you'll receive a reset link.");
+    }
+  } catch (error) {
+    if (error.response) {
+      Alert.error(error.response.data.message || "Failed to send reset email.");
+    } else {
+      Alert.error("Unable to process your request. Please try again later.");
+    }
+  }
+};
