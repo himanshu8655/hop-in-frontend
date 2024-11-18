@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './CreateAccount.css';
 import { signup } from '../../service/AuthService';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from '../../components/Alert';
 
 const CreateAccount = () => {
   const [name, setName] = useState('');
@@ -11,11 +12,13 @@ const CreateAccount = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    await signup(email, password, name);
-    navigate('/chat');
+    try {
+      await signup(email, password, name);
+      Alert.success("Signup successful!")
+      navigate('/home');
+    } catch (error) {
+      Alert.error(error.message);
+    }
   };
 
   return (

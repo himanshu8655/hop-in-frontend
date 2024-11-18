@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
-import ForgotPasswordModal from '../ForgotPasswordPg/ForgotPasswordModal'; // Import the modal
+import ForgotPasswordModal from '../ForgotPasswordPg/ForgotPasswordModal';
+import { login } from '../../service/AuthService';
+import { Alert } from '../../components/Alert';
 
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Remember Me:', rememberMe);
-    // Simulate login logic here
-    navigate('/chat');
+    try {
+      await login(email, password);
+      Alert.success("Signup successful!")
+      navigate('/home');
+    } catch (error) {
+      Alert.error(error.message);
+    }
   };
 
   const handleForgotPassword = () => {
-    setIsModalOpen(true); // Open the modal
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false);
   };
 
   return (
@@ -68,13 +72,12 @@ const Login = () => {
         <button
           type="button"
           className="secondary-button"
-          onClick={handleForgotPassword} // Open modal on click
+          onClick={handleForgotPassword}
         >
           Forgot Password
         </button>
       </form>
 
-      {/* Forgot Password Modal */}
       <ForgotPasswordModal
         isOpen={isModalOpen}
         onClose={closeModal}
