@@ -8,6 +8,8 @@ import CreateAccount from "./routes/CreateAccountPg/CreateAccount";
 import { ToastWrapper } from "./components/Alert";
 import ProtectedRoute from "./service/ProtectedRoutes";
 import HomeScreen from "./routes/HomeScreenPg/HomeScreen";
+import SearchRide from "./routes/SearchRidePg/SearchRide";
+import UserType from "./routes/UserTypePg/UserType";
 
 const App = () => {
   const isAuthenticated = !!sessionStorage.getItem("token"); 
@@ -19,10 +21,26 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
+          path="/user-type"
+          element={
+            <ProtectedRoute
+              element={<UserType />}
+            />
+          }
+        />
+        <Route
           path="/home"
           element={
             <ProtectedRoute
               element={<HomeScreen />}
+            />
+          }
+        />
+          <Route
+          path="/search-ride"
+          element={
+            <ProtectedRoute
+              element={<SearchRide />}
             />
           }
         />
