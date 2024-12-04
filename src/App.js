@@ -8,13 +8,7 @@ import CreateAccount from "./routes/CreateAccountPg/CreateAccount";
 import { ToastWrapper } from "./components/Alert";
 import ProtectedRoute from "./service/ProtectedRoutes";
 import HomeScreen from "./routes/HomeScreenPg/HomeScreen";
-import SearchRide from "./routes/SearchRidePg/SearchRide";
-import UserType from "./routes/UserTypePg/UserType";
-import Payment from "./routes/PaymentPg/Payment";
-import Rating from "./routes/RatingPg/Rating";
-import RideHistory from "./routes/RideHistoryPg/RideHistory";
-import WriteReview from "./routes/WriteReviewPg/WriteReview";
-
+import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
 const App = () => {
   const isAuthenticated = !!sessionStorage.getItem("token"); 
 
@@ -59,6 +53,10 @@ const App = () => {
         <Route
           path="/forgot-password"
           element={<ForgotPasswordModal isOpen={true} onClose={() => {}} />}
+        />
+        <Route
+          path="/reset-password"
+          element={<ResetPasswordModal isOpen={true} onClose={() => {}} />}
         />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
