@@ -10,6 +10,10 @@ import ProtectedRoute from "./service/ProtectedRoutes";
 import HomeScreen from "./routes/HomeScreenPg/HomeScreen";
 import SearchRide from "./routes/SearchRidePg/SearchRide";
 import UserType from "./routes/UserTypePg/UserType";
+import Payment from "./routes/PaymentPg/Payment";
+import Rating from "./routes/RatingPg/Rating";
+import RideHistory from "./routes/RideHistoryPg/RideHistory";
+import WriteReview from "./routes/WriteReviewPg/WriteReview";
 
 const App = () => {
   const isAuthenticated = !!sessionStorage.getItem("token"); 
@@ -58,7 +62,41 @@ const App = () => {
         />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
+
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute
+              element={<RideHistory />}
+            />
+          }
+        />
+        <Route
+          path="/ratings"
+          element={
+            <ProtectedRoute
+              element={<Rating />}
+            />
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute
+              element={<Payment />}
+            />
+          }
+        />
+        <Route
+          path="/write-review/:rideId"
+          element={
+            <ProtectedRoute
+              element={<WriteReview />}
+            />
+          }
+        />
       </Routes>
+     
     </Router>
   );
 };
