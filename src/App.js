@@ -9,6 +9,7 @@ import { ToastWrapper } from "./components/Alert";
 import ProtectedRoute from "./service/ProtectedRoutes";
 import HomeScreen from "./routes/HomeScreenPg/HomeScreen";
 import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
+import User from "./routes/User/User";
 const App = () => {
   const isAuthenticated = !!sessionStorage.getItem("token"); 
 
@@ -59,6 +60,7 @@ const App = () => {
           element={<ResetPasswordModal isOpen={true} onClose={() => {}} />}
         />
         <Route path="/create-account" element={<CreateAccount />} />
+        <Route path="/user-type" element={<User />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
 
         <Route

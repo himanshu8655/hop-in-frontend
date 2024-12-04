@@ -54,3 +54,4 @@ const ResetPasswordModal = ({ onClose }) => {
 };
 
 export default ResetPasswordModal;
+
