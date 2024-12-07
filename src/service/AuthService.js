@@ -71,3 +71,21 @@ export const forgotPassword = async (email) => {
     }
   }
 };
+
+export const resetPassword = async (newPassword) => {
+  try {
+    
+    const response = await axios.post('https://your-api-endpoint.com/reset-password', {
+      password: newPassword,
+    });
+
+    if (response.status === 200) {
+      return response.data; 
+    } else {
+      throw new Error('Failed to reset password');
+    }
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    throw error; 
+  }
+};
