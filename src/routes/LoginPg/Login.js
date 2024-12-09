@@ -38,7 +38,7 @@ const Login = () => {
         <img src="\images\car-icon.png " alt="Car icon with passengers" />
       </div>
       <form className="login-form" onSubmit={handleLogin}>
-        <h1>Hop-In: Seamless Journeys, Every Time!</h1>
+        <h1> Hop-In : Seamless Journey <br></br>Every Time!</h1>
         <input
           type="email"
           placeholder="Email address"

@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #ffd43b;
+  background-color: #2c3e50;
   flex-direction: column; /* Ensure content is stacked vertically */
 }
 
@@ -17,7 +17,7 @@
 }
 
 .login-form {
-  background-color: #2c3e50;
+  background-color: #104e8b;
   padding: 2rem;
   border-radius: 8px;
   text-align: center;
@@ -54,7 +54,7 @@
 .login-form button {
   width: 100%;
   padding: 0.5rem;
-  background-color: #1e90ff;
+  background-color: #104e8b;
   color: white;
   border: none;
   border-radius: 4px;
@@ -68,9 +68,9 @@
 }
 
 .login-form .secondary-button {
-  background-color: #ff6f61;
+  background-color: #104e8b;
 }
 
 .login-form .secondary-button:hover {
-  background-color: #c94c43;
+  background-color: #104e8b;
 }
