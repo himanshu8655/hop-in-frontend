@@ -16,7 +16,7 @@ const ResetPasswordModal = ({ onClose }) => {
     }
 
     try {
-      await resetPassword(newPassword); 
+      await resetPassword(newPassword);
       onClose();
     } catch (error) {
       setErrorMessage('Failed to reset password. Please try again.');
@@ -54,4 +54,3 @@ const ResetPasswordModal = ({ onClose }) => {
 };
 
 export default ResetPasswordModal;
-
