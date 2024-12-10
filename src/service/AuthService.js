@@ -9,22 +9,30 @@ const API_URL = process.env.REACT_APP_API_URL;
  * @param {string} lastName - The user's last name.
  * @param {string} email - The user's email address.
  * @param {string} password - The user's password.
+ * @param {string} contact_no - The user's conatct_no.
  */
-export const signup = async (firstName, lastName, email, password) => {
+export const signup = async (firstName, lastName, email, password, image, contact_no) => {
   try {
     const response = await axios.post(`${API_URL}/auth/signup`, {
       firstName,
       lastName,
       email,
       password,
+      contact_no,
     });
 
-    if (!response.data.token || !response.data.userId) {
-      throw new Error("Sign-up failed: Missing token or user ID");
+    // if (!response.data.token || !response.data.userId) {
+    //   throw new Error("Sign-up failed: Missing token or user ID");
+    // }
+    if(response.message != "User Created"){
+
+    }else{
+
     }
 
     sessionStorage.setItem("token", response.data.token);
     sessionStorage.setItem("userId", response.data.userId.toString());
+    Alert.success("User Created Successfully");
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || "Sign-up failed");
@@ -52,6 +60,7 @@ export const login = async (email, password) => {
 
     sessionStorage.setItem("token", response.data.token);
     sessionStorage.setItem("userId", response.data.userId.toString());
+    Alert.success("Logged In Successfully");
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || "Login failed");

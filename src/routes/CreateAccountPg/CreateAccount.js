@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './CreateAccount.css';
 import { signup } from '../../service/AuthService';
 import { useNavigate } from 'react-router-dom';
-import { Alert } from '../../components/Alert';
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import default styles for react-toastify
 
 const CreateAccount = () => {
   const [firstName, setFirstName] = useState('');
@@ -10,17 +11,17 @@ const CreateAccount = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [image, setImage] = useState(null); // State to hold image
+  const [contact_no, setContact] = useState('');
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      // Handle signup with image (you can use FormData if you're uploading the image to the server)
-      await signup(firstName, lastName, email, password, image);
-      Alert.success("Signup successful!");
-      navigate('/home');
+      await signup(firstName, lastName, email, password, image, contact_no);
+      toast.success('Signup successful! 🎉'); // Show success toast
+      setTimeout(() => navigate('/home'), 2000); // Navigate to home after 2 seconds
     } catch (error) {
-      Alert.error(error.message);
+      toast.error(error.message); // Show error toast
     }
   };
 
@@ -33,10 +34,9 @@ const CreateAccount = () => {
 
   return (
     <div className="create-account-container">
+      <ToastContainer /> {/* Add ToastContainer to render toasts */}
       <form className="create-account-form" onSubmit={handleSignup}>
         <h1>Create an Account</h1>
-        
-        {/* First Name and Last Name Inputs */}
         <div className="name-inputs">
           <input
             type="text"
@@ -45,7 +45,6 @@ const CreateAccount = () => {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-          
           <input
             type="text"
             placeholder="Last Name"
@@ -54,8 +53,6 @@ const CreateAccount = () => {
             required
           />
         </div>
-
-        {/* Email Input */}
         <input
           type="email"
           placeholder="Email address"
@@ -63,8 +60,6 @@ const CreateAccount = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        
-        {/* Password Input */}
         <input
           type="password"
           placeholder="Password"
@@ -72,8 +67,18 @@ const CreateAccount = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-
-        {/* Image Upload Input */}
+        <input
+          type="tel"
+          placeholder="Enter Contact Number"
+          value={contact_no}
+          onChange={(e) => {
+            const sanitizedValue = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+            setContact(sanitizedValue);
+          }}
+          maxLength="10"
+          pattern="[0-9]{10}"
+          required
+        />
         <div className="image-upload">
           <input
             type="file"
@@ -82,11 +87,7 @@ const CreateAccount = () => {
           />
           {image && <img src={image} alt="Preview" className="image-preview" />}
         </div>
-
-        {/* Submit Button */}
         <button type="submit">Sign Up</button>
-
-        {/* Back to Login Button */}
         <button
           type="button"
           className="secondary-button"

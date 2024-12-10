@@ -5,7 +5,6 @@ import ForgotPasswordModal from '../ForgotPasswordPg/ForgotPasswordModal';
 import { login } from '../../service/AuthService';
 import { Alert } from '../../components/Alert';
 
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,12 +14,13 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
       await login(email, password);
-      Alert.success("Signup successful!")
-      navigate('/home');
+      Alert.success("Login successful!");
+      navigate('/landing'); // Redirect to Landing Page after successful login
     } catch (error) {
-      Alert.error(error.message);
+      Alert.error("Invalid email or password. Please try again.");
     }
   };
 
@@ -35,10 +35,10 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-image">
-        <img src="\images\car-icon.png " alt="Car icon with passengers" />
+        <img src="/images/car-icon.png" alt="Car icon with passengers" />
       </div>
       <form className="login-form" onSubmit={handleLogin}>
-        <h1> Hop-In : Seamless Journey <br></br>Every Time!</h1>
+        <h1>Hop-In: Seamless Journey <br />Every Time!</h1>
         <input
           type="email"
           placeholder="Email address"
@@ -78,10 +78,12 @@ const Login = () => {
         </button>
       </form>
 
-      <ForgotPasswordModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-      />
+      {isModalOpen && (
+        <ForgotPasswordModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };
