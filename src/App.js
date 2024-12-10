@@ -16,6 +16,8 @@ import RideHistory from "./routes/RideHistoryPg/RideHistory";
 import WriteReview from "./routes/WriteReviewPg/WriteReview";
 import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
 import User from "./routes/UserType/User";
+import LandingPage from "./routes/LandingPg/LandingPage";
+
 
 const App = () => {
   const isAuthenticated = !!sessionStorage.getItem("token"); 
@@ -25,7 +27,7 @@ const App = () => {
     <Router>
       <ToastWrapper />
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} /> //Change back to LoginPage
         <Route
           path="/user-type"
           element={
@@ -42,7 +44,7 @@ const App = () => {
             />
           }
         />
-          <Route
+        <Route
           path="/search-ride"
           element={
             <ProtectedRoute
@@ -63,8 +65,8 @@ const App = () => {
           element={<ForgotPasswordModal isOpen={true} onClose={() => {}} />}
         />
         <Route path="/create-account" element={<CreateAccount />} />
+        <Route path="/landing" element={<ProtectedRoute element={<LandingPage />} />} /> {/* Add LandingPage Route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
-
         <Route
           path="/history"
           element={
@@ -89,7 +91,7 @@ const App = () => {
             />
           }
         />
-         <Route
+        <Route
           path="/reset-password"
           element={<ResetPasswordModal isOpen={true} onClose={() => {}} />}
         />
@@ -102,7 +104,6 @@ const App = () => {
           }
         />
       </Routes>
-     
     </Router>
   );
 };

@@ -48,7 +48,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <LoadScript googleMapsApiKey={MAPS_API} libraries={["places"]}>
+    <LoadScript googleMapsApiKey="" libraries={["places"]}>
       <div style={{ position: "relative" }}>
         <GoogleMap
           mapContainerStyle={containerStyle}
