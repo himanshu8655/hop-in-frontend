@@ -18,10 +18,11 @@ const CreateAccount = () => {
     e.preventDefault();
     try {
       await signup(firstName, lastName, email, password, image, contact_no);
-      toast.success('Signup successful! 🎉'); // Show success toast
-      setTimeout(() => navigate('/home'), 2000); // Navigate to home after 2 seconds
+      toast.success("User Created Successfully!")
+      navigate("/login")
+
     } catch (error) {
-      toast.error(error.message); // Show error toast
+      toast.error(error.message);
     }
   };
 

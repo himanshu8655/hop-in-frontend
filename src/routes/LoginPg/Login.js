@@ -18,7 +18,7 @@ const Login = () => {
     try {
       await login(email, password);
       Alert.success("Login successful!");
-      navigate('/landing'); // Redirect to Landing Page after successful login
+      navigate('/landing');
     } catch (error) {
       Alert.error("Invalid email or password. Please try again.");
     }

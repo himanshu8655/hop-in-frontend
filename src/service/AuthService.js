@@ -20,19 +20,6 @@ export const signup = async (firstName, lastName, email, password, image, contac
       password,
       contact_no,
     });
-
-    // if (!response.data.token || !response.data.userId) {
-    //   throw new Error("Sign-up failed: Missing token or user ID");
-    // }
-    if(response.message != "User Created"){
-
-    }else{
-
-    }
-
-    sessionStorage.setItem("token", response.data.token);
-    sessionStorage.setItem("userId", response.data.userId.toString());
-    Alert.success("User Created Successfully");
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || "Sign-up failed");
@@ -54,13 +41,13 @@ export const login = async (email, password) => {
       password,
     });
 
-    if (!response.data.token || !response.data.userId) {
+    if (!response.data.token || !response.data.uid) {
+      console.log("uid nit fdound")
       throw new Error("Login failed: Missing token or user ID");
     }
 
     sessionStorage.setItem("token", response.data.token);
-    sessionStorage.setItem("userId", response.data.userId.toString());
-    Alert.success("Logged In Successfully");
+    sessionStorage.setItem("userId", response.data.uid.toString());
   } catch (error) {
     if (error.response) {
       throw new Error(error.response.data.message || "Login failed");
