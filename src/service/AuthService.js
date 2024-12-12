@@ -64,6 +64,7 @@ export const login = async (email, password) => {
 export const logout = (navigate) => {
   sessionStorage.removeItem("token");
   sessionStorage.removeItem("userId");
+  sessionStorage.removeItem("user_type");
   navigate("/login");
   Alert.success("Logout Successful!");
 };

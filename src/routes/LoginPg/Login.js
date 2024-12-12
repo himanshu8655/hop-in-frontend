@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 import ForgotPasswordModal from '../ForgotPasswordPg/ForgotPasswordModal';
@@ -12,13 +12,22 @@ const Login = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    if(sessionStorage.getItem("token") == null || sessionStorage.getItem("userId") == null){
+      navigate('/login');
+    }
+    else{
+      navigate('/home')
+    }
+  })
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       await login(email, password);
       Alert.success("Login successful!");
-      navigate('/landing');
+      navigate('/home');
     } catch (error) {
       Alert.error("Invalid email or password. Please try again.");
     }

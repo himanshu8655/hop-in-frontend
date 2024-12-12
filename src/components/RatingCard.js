@@ -7,8 +7,6 @@ const RatingCard = ({ rfc_description, ride_id, date, rating }) => {
     setExpanded(!expanded);
   };
 
-  const cardHeight = expanded ? "auto" : "200px";
-
   return (
     <div
       style={{
@@ -18,7 +16,7 @@ const RatingCard = ({ rfc_description, ride_id, date, rating }) => {
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         marginBottom: "1rem",
         width: "400px",
-        height: cardHeight,
+        height: "auto",
         margin: "0 auto",
         textAlign: "center",
         overflow: "hidden", 

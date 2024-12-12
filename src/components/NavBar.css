@@ -1,0 +1,20 @@
+/* NavbarComponent.css */
+.custom-navbar {
+    background-color: #282c34;
+    color: white;
+    padding-bottom: 15px;
+  }
+  
+  .custom-navbar .navbar-brand,
+  .custom-navbar .nav-link {
+    color: white !important; /* Make sure the text is white */
+  }
+  
+  .custom-navbar .navbar-nav .nav-link:hover {
+    color: #61dafb; /* Color on hover */
+  }
+  
+  .custom-navbar .navbar-toggler-icon {
+    background-color: white; /* Toggler icon color */
+  }
+  

@@ -6,7 +6,7 @@ import {
   Marker,
 } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
-import "./HomeScreen.css";
+import "./CarPool.css";
 import { createRide } from "../../service/RideService";
 import { Alert } from "../../components/Alert";
 
@@ -17,7 +17,7 @@ const containerStyle = {
 };
 const MAPS_API = process.env.REACT_APP_MAPS_API;
 
-const HomeScreen = () => {
+const CarPool = () => {
   const [start, setStart] = useState({ lat: null, lng: null });
   const [end, setEnd] = useState({ lat: null, lng: null });
   const [mapCenter, setMapCenter] = useState({ lat: 37.7749, lng: -122.4194 });
@@ -109,4 +109,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default CarPool;
