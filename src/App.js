@@ -13,16 +13,12 @@ import Rating from "./routes/RatingPg/Rating";
 import RideHistory from "./routes/RideHistoryPg/RideHistory";
 import WriteReview from "./routes/WriteReviewPg/WriteReview";
 import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
-<<<<<<< HEAD
 import User from "./routes/UserType/User";
 import LandingPage from "./routes/LandingPg/LandingPage";
 import Message from "./routes/MessagePg/Message";
-
-=======
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CarPool from "./routes/CarPoolPg/CarPool";
 import HomePage from "./routes/HomePg/HomePage";
->>>>>>> 235484eb7bbe48ba53b3082e16e8b0f34f4d82e7
 
 
 const App = () => {
@@ -69,10 +65,8 @@ const App = () => {
           element={<ForgotPasswordModal isOpen={true} onClose={() => {}} />}
         />
         <Route path="/create-account" element={<CreateAccount />} />
-<<<<<<< HEAD
+
         <Route path="/landing" element={<ProtectedRoute element={<LandingPage />} />} />
-=======
->>>>>>> 235484eb7bbe48ba53b3082e16e8b0f34f4d82e7
         <Route path="*" element={<Navigate to="/login" replace />} />
         <Route
           path="/history"
