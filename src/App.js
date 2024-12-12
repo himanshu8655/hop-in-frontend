@@ -14,7 +14,6 @@ import RideHistory from "./routes/RideHistoryPg/RideHistory";
 import WriteReview from "./routes/WriteReviewPg/WriteReview";
 import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
 import User from "./routes/UserType/User";
-import LandingPage from "./routes/LandingPg/LandingPage";
 import Message from "./routes/MessagePg/Message";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CarPool from "./routes/CarPoolPg/CarPool";
@@ -66,7 +65,6 @@ const App = () => {
         />
         <Route path="/create-account" element={<CreateAccount />} />
 
-        <Route path="/landing" element={<ProtectedRoute element={<LandingPage />} />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
         <Route
           path="/history"

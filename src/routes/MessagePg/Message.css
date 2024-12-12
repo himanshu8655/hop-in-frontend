@@ -52,16 +52,16 @@
   
   .chat-messages {
     display: flex;
-    flex-direction: column; /* Ensure messages stack vertically */
-    gap: 10px; /* Add spacing between messages */
+    flex-direction: column; 
+    gap: 10px; 
     padding: 10px;
-    overflow-y: auto; /* Allow scrolling for long conversations */
+    overflow-y: auto; 
     background-color: #ece5dd;
 }
 
 .message {
-    max-width: 75%; /* Prevent messages from becoming too wide */
-    display: inline-block; /* Size depends on content */
+    max-width: 75%; 
+    display: inline-block; 
     padding: 10px;
     border-radius: 12px;
     word-wrap: break-word; 
