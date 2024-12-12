@@ -58,7 +58,7 @@ const Message = () => {
               ✖
             </button>
           </div>
-          <div className="chat-messages">
+          <div className="chat-message">
             {messages.map((message, index) => (
               <div key={index} className={`message ${message.sender}`}>
                 {message.text}

@@ -7,42 +7,44 @@ import ForgotPasswordModal from "./routes/ForgotPasswordPg/ForgotPasswordModal";
 import CreateAccount from "./routes/CreateAccountPg/CreateAccount";
 import { ToastWrapper } from "./components/Alert";
 import ProtectedRoute from "./service/ProtectedRoutes";
-import HomeScreen from "./routes/HomeScreenPg/HomeScreen";
 import SearchRide from "./routes/SearchRidePg/SearchRide";
-import UserType from "./routes/UserTypePg/UserType";
 import Payment from "./routes/PaymentPg/Payment";
 import Rating from "./routes/RatingPg/Rating";
 import RideHistory from "./routes/RideHistoryPg/RideHistory";
 import WriteReview from "./routes/WriteReviewPg/WriteReview";
 import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
+<<<<<<< HEAD
 import User from "./routes/UserType/User";
 import LandingPage from "./routes/LandingPg/LandingPage";
 import Message from "./routes/MessagePg/Message";
 
+=======
+import 'bootstrap/dist/css/bootstrap.min.css';
+import CarPool from "./routes/CarPoolPg/CarPool";
+import HomePage from "./routes/HomePg/HomePage";
+>>>>>>> 235484eb7bbe48ba53b3082e16e8b0f34f4d82e7
 
 
 const App = () => {
-  const isAuthenticated = !!sessionStorage.getItem("token"); 
-
-  console.log("Is user authenticated:", isAuthenticated);
   return (
+    <div>
     <Router>
       <ToastWrapper />
       <Routes>
-        <Route path="/login" element={<Login />} /> //Change back to LoginPage
-        <Route
-          path="/user-type"
-          element={
-            <ProtectedRoute
-              element={<User />}
-            />
-          }
-        />
+        <Route path="/login" element={<Login />} />
         <Route
           path="/home"
           element={
             <ProtectedRoute
-              element={<HomeScreen />}
+              element={<HomePage />}
+            />
+          }
+        />
+        <Route
+          path="/carpool"
+          element={
+            <ProtectedRoute
+              element={<CarPool />}
             />
           }
         />
@@ -67,7 +69,10 @@ const App = () => {
           element={<ForgotPasswordModal isOpen={true} onClose={() => {}} />}
         />
         <Route path="/create-account" element={<CreateAccount />} />
+<<<<<<< HEAD
         <Route path="/landing" element={<ProtectedRoute element={<LandingPage />} />} />
+=======
+>>>>>>> 235484eb7bbe48ba53b3082e16e8b0f34f4d82e7
         <Route path="*" element={<Navigate to="/login" replace />} />
         <Route
           path="/history"
@@ -109,6 +114,7 @@ const App = () => {
         />
       </Routes>
     </Router>
+    </div>
   );
 };
 
