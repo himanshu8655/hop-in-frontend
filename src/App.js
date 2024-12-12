@@ -17,6 +17,8 @@ import WriteReview from "./routes/WriteReviewPg/WriteReview";
 import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
 import User from "./routes/UserType/User";
 import LandingPage from "./routes/LandingPg/LandingPage";
+import Message from "./routes/MessagePg/Message";
+
 
 
 const App = () => {
@@ -65,7 +67,7 @@ const App = () => {
           element={<ForgotPasswordModal isOpen={true} onClose={() => {}} />}
         />
         <Route path="/create-account" element={<CreateAccount />} />
-        <Route path="/landing" element={<ProtectedRoute element={<LandingPage />} />} /> {/* Add LandingPage Route */}
+        <Route path="/landing" element={<ProtectedRoute element={<LandingPage />} />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
         <Route
           path="/history"
@@ -95,6 +97,8 @@ const App = () => {
           path="/reset-password"
           element={<ResetPasswordModal isOpen={true} onClose={() => {}} />}
         />
+        <Route path="/message" element={<Message />} />
+        
         <Route
           path="/write-review/:rideId"
           element={
