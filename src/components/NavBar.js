@@ -1,13 +1,18 @@
 // NavbarComponent.js
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import "./NavBar.css";
+import { logout } from "../service/AuthService";
+
 
 const NavbarComponent = () => {
+    const navigate = useNavigate();
+
   const handleLogout = () => {
+    logout(navigate);
   };
 
   return (
