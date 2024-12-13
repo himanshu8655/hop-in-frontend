@@ -1,15 +1,14 @@
 // NavbarComponent.js
 import React from "react";
-import { Link, useNavigate, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import "./NavBar.css";
 import { logout } from "../service/AuthService";
 
-
 const NavbarComponent = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout(navigate);
@@ -21,7 +20,6 @@ const NavbarComponent = () => {
         <Navbar.Brand as={Link} to="/" className="navbar-brand">
           Hop-In
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             <Nav.Link as={Link} to="/create-ride" className="nav-link">
@@ -37,7 +35,7 @@ const NavbarComponent = () => {
               View Rating
             </Nav.Link>
             <Nav.Link onClick={handleLogout} className="nav-link logout-link">
-              Logout
+              <i className="fas fa-sign-out-alt"></i> Logout
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

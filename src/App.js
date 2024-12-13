@@ -14,32 +14,31 @@ import RideHistory from "./routes/RideHistoryPg/RideHistory";
 import WriteReview from "./routes/WriteReviewPg/WriteReview";
 import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
 import User from "./routes/UserType/User";
-import Message from "./routes/MessagePg/Message";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import CarPool from "./routes/CarPoolPg/CarPool";
 import HomePage from "./routes/HomePg/HomePage";
 
 
 const App = () => {
+  const isAuthenticated = !!sessionStorage.getItem("token"); 
+
+  console.log("Is user authenticated:", isAuthenticated);
   return (
-    <div>
     <Router>
       <ToastWrapper />
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} /> //Change back to LoginPage
+        <Route
+          path="/user-type"
+          element={
+            <ProtectedRoute
+              element={<User />}
+            />
+          }
+        />
         <Route
           path="/home"
           element={
             <ProtectedRoute
               element={<HomePage />}
-            />
-          }
-        />
-        <Route
-          path="/carpool"
-          element={
-            <ProtectedRoute
-              element={<CarPool />}
             />
           }
         />
@@ -64,7 +63,6 @@ const App = () => {
           element={<ForgotPasswordModal isOpen={true} onClose={() => {}} />}
         />
         <Route path="/create-account" element={<CreateAccount />} />
-
         <Route path="*" element={<Navigate to="/login" replace />} />
         <Route
           path="/history"
@@ -94,8 +92,6 @@ const App = () => {
           path="/reset-password"
           element={<ResetPasswordModal isOpen={true} onClose={() => {}} />}
         />
-        <Route path="/message" element={<Message />} />
-        
         <Route
           path="/write-review/:rideId"
           element={
@@ -106,7 +102,6 @@ const App = () => {
         />
       </Routes>
     </Router>
-    </div>
   );
 };
 

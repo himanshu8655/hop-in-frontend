@@ -20,7 +20,7 @@ const MAPS_API = process.env.REACT_APP_MAPS_API;
 const CarPool = () => {
   const [start, setStart] = useState({ lat: null, lng: null });
   const [end, setEnd] = useState({ lat: null, lng: null });
-  const [mapCenter, setMapCenter] = useState({ lat: 37.7749, lng: -122.4194 });
+  const [mapCenter, setMapCenter] = useState({ lat: 40.7113, lng: -74.0052 });
   const navigate = useNavigate();
   const [value, setValue] = useState(1);
 
