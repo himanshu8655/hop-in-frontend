@@ -17,9 +17,10 @@ const Login = () => {
       navigate('/login');
     }
     else{
+      console.log('home useeffect')
       navigate('/home')
     }
-  })
+  },[])
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -27,6 +28,7 @@ const Login = () => {
     try {
       await login(email, password);
       Alert.success("Login successful!");
+      console.log('home btn press')
       navigate('/home');
     } catch (error) {
       Alert.error("Invalid email or password. Please try again.");

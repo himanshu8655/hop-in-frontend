@@ -15,6 +15,7 @@ import WriteReview from "./routes/WriteReviewPg/WriteReview";
 import ResetPasswordModal from "./routes/ResetPasswordPg/ResetPasswordModal";
 import User from "./routes/UserType/User";
 import HomePage from "./routes/HomePg/HomePage";
+import Message from "./routes/MessagePg/Message";
 
 
 const App = () => {
@@ -85,6 +86,14 @@ const App = () => {
           element={
             <ProtectedRoute
               element={<Payment />}
+            />
+          }
+        />
+                <Route
+          path="/message"
+          element={
+            <ProtectedRoute
+              element={<Message />}
             />
           }
         />
