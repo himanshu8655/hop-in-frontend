@@ -16,8 +16,6 @@ const HomePage = () => {
   return (
     <div className="landing-container">
       <NavbarComponent></NavbarComponent>
-
-      {/* CarPool component below the Navbar */}
       <div className="map-container">
         <CarPool />
       </div>

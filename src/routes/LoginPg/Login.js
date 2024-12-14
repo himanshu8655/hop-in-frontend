@@ -17,8 +17,7 @@ const Login = () => {
       navigate('/login');
     }
     else{
-      console.log('home useeffect')
-      navigate('/home')
+      navigate('/user-type');
     }
   },[])
 
@@ -28,8 +27,7 @@ const Login = () => {
     try {
       await login(email, password);
       Alert.success("Login successful!");
-      console.log('home btn press')
-      navigate('/home');
+      navigate('/user-type');
     } catch (error) {
       Alert.error("Invalid email or password. Please try again.");
     }

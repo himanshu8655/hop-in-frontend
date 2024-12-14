@@ -23,7 +23,6 @@ const CarPool = () => {
   const [mapCenter, setMapCenter] = useState({ lat: 40.7113, lng: -74.0052 });
   const navigate = useNavigate();
   const [value, setValue] = useState(1);
-
   const handlePlaceSelected = (place, type) => {
     if (!place || !place.geometry) {
       console.warn("Invalid place or geometry missing");
