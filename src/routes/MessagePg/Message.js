@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./Message.css";
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
+
 
 const Message = () => {
   const [messages, setMessages] = useState([
@@ -45,12 +47,14 @@ const Message = () => {
         className="floating-button"
         onClick={() => setIsChatVisible((prev) => !prev)}
       >
-        Chat
+            <i className="bi bi-chat" style={{ fontSize: '22px', color: '#f1f1f1' }}></i> {/* Message Icon */}
+
       </button>
       {isChatVisible && (
         <div className="chat-container">
           <div className="chat-header">
             <span>Hop-in</span>
+            
             <button
               className="close-button"
               onClick={() => setIsChatVisible(false)}

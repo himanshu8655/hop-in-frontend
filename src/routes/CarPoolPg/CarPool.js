@@ -48,6 +48,7 @@ const CarPool = () => {
   };
 
   const handleIncrement = () => {
+    if(value < 5)
     setValue(value + 1);
   };
 

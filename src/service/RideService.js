@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const searchRide = async (startLat, startLng, endLat, endLng) => {
   try {
@@ -19,15 +19,25 @@ export const searchRide = async (startLat, startLng, endLat, endLng) => {
   } catch (error) {
     if (error.response) {
       console.error("Error response:", error.response.data);
-      throw new Error(error.response.data.message || "Failed to search for a ride.");
+      throw new Error(
+        error.response.data.message || "Failed to search for a ride."
+      );
     } else {
       console.error("Request error:", error.message);
-      throw new Error("Unable to process your request. Please try again later.");
+      throw new Error(
+        "Unable to process your request. Please try again later."
+      );
     }
   }
 };
 
-export const createRide = async (startLat, startLng, endLat, endLng, noOfSeats) => {
+export const createRide = async (
+  startLat,
+  startLng,
+  endLat,
+  endLng,
+  noOfSeats
+) => {
   try {
     const response = await axios.post(`${API_URL}/hopin/carpool`, {
       uid: sessionStorage.getItem("userId"),
@@ -35,7 +45,7 @@ export const createRide = async (startLat, startLng, endLat, endLng, noOfSeats) 
       start_long: startLng,
       end_lat: endLat,
       end_long: endLng,
-      no_of_seats: noOfSeats
+      no_of_seats: noOfSeats,
     });
 
     if (response.data) {
@@ -45,15 +55,25 @@ export const createRide = async (startLat, startLng, endLat, endLng, noOfSeats) 
   } catch (error) {
     if (error.response) {
       console.error("Error response:", error.response.data);
-      throw new Error(error.response.data.message || "Failed to search for a ride.");
+      throw new Error(
+        error.response.data.message || "Failed to search for a ride."
+      );
     } else {
       console.error("Request error:", error.message);
-      throw new Error("Unable to process your request. Please try again later.");
+      throw new Error(
+        "Unable to process your request. Please try again later."
+      );
     }
   }
 };
 
 export const fetchActiveRide = async () => {
+  return {
+    "owner": "John Doe",
+    commuters: "Alice, Bob",
+    "noOfSeats": 3,
+    "rideId": "RIDE12345",
+  };
   try {
     const response = await axios.post(`${API_URL}/hopin/active-ride`, {
       uid: sessionStorage.getItem("userId"),
@@ -67,10 +87,14 @@ export const fetchActiveRide = async () => {
   } catch (error) {
     if (error.response) {
       console.error("Error response:", error.response.data);
-      throw new Error(error.response.data.message || "Failed to fetch active ride details.");
+      throw new Error(
+        error.response.data.message || "Failed to fetch active ride details."
+      );
     } else {
       console.error("Request error:", error.message);
-      throw new Error("Unable to process your request. Please try again later.");
+      throw new Error(
+        "Unable to process your request. Please try again later."
+      );
     }
   }
-}
+};
