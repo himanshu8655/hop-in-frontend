@@ -16,7 +16,7 @@ const containerStyle = {
   position: "relative",
 };
 const MAPS_API = process.env.REACT_APP_MAPS_API;
-const user_type = sessionStorage.getItem("user_type")
+const user_type = sessionStorage.getItem("user_type");
 
 const CarPool = () => {
   const [start, setStart] = useState({ lat: null, lng: null });
@@ -24,6 +24,7 @@ const CarPool = () => {
   const [mapCenter, setMapCenter] = useState({ lat: 40.7113, lng: -74.0052 });
   const navigate = useNavigate();
   const [value, setValue] = useState(1);
+
   const handlePlaceSelected = (place, type) => {
     if (!place || !place.geometry) {
       console.warn("Invalid place or geometry missing");
@@ -41,18 +42,23 @@ const CarPool = () => {
 
     setMapCenter(coordinates);
   };
-  const handleDecrement = () => {if(value>1)setValue(value-1)}
-  const handleIncrement = () => {setValue(value+1)}
 
-  const handleSearchRide = async() => {
+  const handleDecrement = () => {
+    if (value > 1) setValue(value - 1);
+  };
+
+  const handleIncrement = () => {
+    setValue(value + 1);
+  };
+
+  const handleSearchRide = async () => {
     if (start.lat && end.lat) {
-      try{
-        await createRide(start.lat, start.lng, end.lat,end.lng, value)
+      try {
+        await createRide(start.lat, start.lng, end.lat, end.lng, value);
+      } catch (error) {
+        Alert.error("Error creating ride");
       }
-      catch (error){
-        Alert.error("Error creating ride")
-      }
-      //navigate(`/search-ride?startLat=${start.lat}&startLng=${start.lng}&endLat=${end.lat}&endLng=${end.lng}`);
+      // navigate(`/search-ride?startLat=${start.lat}&startLng=${start.lng}&endLat=${end.lat}&endLng=${end.lng}`);
     } else {
       alert("Please select both start and end locations.");
     }
@@ -61,11 +67,7 @@ const CarPool = () => {
   return (
     <LoadScript googleMapsApiKey={MAPS_API} libraries={["places"]}>
       <div style={{ position: "relative" }}>
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={mapCenter}
-          zoom={13}
-        >
+        <GoogleMap mapContainerStyle={containerStyle} center={mapCenter} zoom={13}>
           {start.lat && <Marker position={start} />}
           {end.lat && <Marker position={end} />}
         </GoogleMap>
@@ -96,12 +98,18 @@ const CarPool = () => {
               className="input-field"
             />
           </Autocomplete>
-          <p>No of Seats</p>
-          <button onClick={handleDecrement}>-</button>
-          <p style={{ color: 'black' }}>{value}</p>
-          <button onClick={handleIncrement}>+</button>
+
+          <div className="seat-selection">
+            <label>No of Seats</label>
+            <div className="seat-controls">
+              <button onClick={handleDecrement}>-</button>
+              <p>{value}</p>
+              <button onClick={handleIncrement}>+</button>
+            </div>
+          </div>
+
           <button className="search-button" onClick={handleSearchRide}>
-            {user_type == "commuter"?'Join Ride': "Create Ride"}
+            {user_type === "commuter" ? "Join Ride" : "Create Ride"}
           </button>
         </div>
       </div>
