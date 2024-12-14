@@ -23,7 +23,7 @@ const RideHistory = () => {
       message_id: "MSG202",
     },
     {
-      ride_id: "RIDE124",
+      ride_id: "2",
       carpool_owner_id: "OWNER457",
       status: "Cancelled",
       total_seats: 3,

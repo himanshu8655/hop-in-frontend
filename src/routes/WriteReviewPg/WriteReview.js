@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { writeReview } from "../../service/RideService";
 import { Alert } from "../../components/Alert";
@@ -9,11 +9,12 @@ const WriteReview = () => {
   const [description, setDescription] = useState("");
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
       const response = await writeReview(rideId, rating, description);
-      console.log(response,"========")
+      navigate('/ratings')
       if (response.success) {
         Alert.success(response.message);
       } else {

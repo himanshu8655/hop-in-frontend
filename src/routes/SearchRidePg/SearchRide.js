@@ -10,7 +10,11 @@ const SearchRide = () => {
     const fetchRideData = async () => {
       try {
         const result = await fetchActiveRide();
-        setRide(result);
+        if (result.success) {
+          setRide(result.data); // Update state with the actual data
+        } else {
+          setError("Failed to fetch ride details.");
+        }
       } catch (err) {
         setError(err.message);
       }
@@ -25,15 +29,17 @@ const SearchRide = () => {
       {error && <p style={{ color: "red", textAlign: "center" }}>Error: {error}</p>}
       {ride ? (
         <div style={{ fontSize: "1.2rem", marginTop: "20px", textAlign: "center" }}>
-          <p><strong>Carpool Owner:</strong> {ride.owner}</p>
-          <p><strong>Commuters:</strong> {ride.commuters}</p>
-          <p><strong>Number of Seats:</strong> {ride.noOfSeats}</p>
-          <p><strong>Ride ID:</strong> {ride.rideId}</p>
+          <p><strong>Carpool Owner ID:</strong> {ride.carpool_owner}</p>
+          <p><strong>Start Location:</strong> Lat: {ride.start_location.coordinates[1]}, Long: {ride.start_location.coordinates[0]}</p>
+          <p><strong>End Location:</strong> Lat: {ride.end_location.coordinates[1]}, Long: {ride.end_location.coordinates[0]}</p>
+          <p><strong>Start Time:</strong> {new Date(ride.start_time).toLocaleString()}</p>
+          <p><strong>Seats Available:</strong> {ride.seat_available}</p>
+          <p><strong>Ride ID:</strong> {ride.ride_id}</p>
         </div>
       ) : (
         <p style={{ textAlign: "center" }}>Loading ride data...</p>
       )}
-      <Message/>
+      <Message />
     </div>
   );
 };

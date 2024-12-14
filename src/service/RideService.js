@@ -88,16 +88,9 @@ export const writeReview = async (ride_id, rating, description) => {
 };
 
 export const fetchActiveRide = async () => {
-  return {
-    "owner": "John Doe",
-    commuters: "Alice, Bob",
-    "noOfSeats": 3,
-    "rideId": "RIDE12345",
-  };
   try {
-    const response = await axios.post(`${API_URL}/hopin/active-ride`, {
+    const response = await axios.post(`${API_URL}/hopin/activeride`, {
       uid: sessionStorage.getItem("userId"),
-      user_type: sessionStorage.getItem("user_type"),
     });
 
     if (response.data) {
