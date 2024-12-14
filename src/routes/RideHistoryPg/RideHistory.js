@@ -1,7 +1,16 @@
 import React from "react";
 import RideHistoryCard from "../../components/RideHistoryCard";
+import { useNavigate } from "react-router-dom";
 
 const RideHistory = () => {
+
+  const navigate = useNavigate();
+
+  const handleReview = (rideId) => {
+    
+    navigate(`/write-review/${rideId}`)
+  };
+
   const rideHistoryList = [
     {
       ride_id: "RIDE123",
@@ -40,6 +49,7 @@ const RideHistory = () => {
             end_location={ride.end_location}
             commuter_id={ride.commuter_id}
             message_id={ride.message_id}
+            onWriteReview={handleReview}
           />
         ))}
       </div>

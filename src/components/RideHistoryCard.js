@@ -9,6 +9,7 @@ const RideHistoryCard = ({
   start_location,
   end_location,
   commuter_id,
+  onWriteReview, // Accepting the function prop
 }) => {
   return (
     <div
@@ -32,7 +33,7 @@ const RideHistoryCard = ({
         <button
           style={{
             backgroundColor: "transparent",
-            color: "#FFC700", 
+            color: "#FFC700",
             border: "none",
             padding: "0.5rem 1rem",
             fontSize: "1rem",
@@ -41,7 +42,7 @@ const RideHistoryCard = ({
             alignItems: "center",
             gap: "0.5rem",
           }}
-          onClick={() => alert(`Write a review for Ride ID: ${ride_id}`)}
+          onClick={() => onWriteReview(ride_id)} // Calling parent function with ride_id
         >
           <FaStar /> Write a Review
         </button>

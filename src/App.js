@@ -66,7 +66,7 @@ const App = () => {
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
         <Route
-          path="/history"
+          path="/ride-history"
           element={
             <ProtectedRoute
               element={<RideHistory />}
