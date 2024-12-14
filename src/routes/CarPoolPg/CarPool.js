@@ -7,7 +7,7 @@ import {
 } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
 import "./CarPool.css";
-import { createRide } from "../../service/RideService";
+import { createRide, searchRide } from "../../service/RideService";
 import { Alert } from "../../components/Alert";
 
 const containerStyle = {
@@ -16,7 +16,7 @@ const containerStyle = {
   position: "relative",
 };
 const MAPS_API = process.env.REACT_APP_MAPS_API;
-const user_type = sessionStorage.getItem("user_type")
+const user_type = sessionStorage.getItem("user_type");
 
 const CarPool = () => {
   const [start, setStart] = useState({ lat: null, lng: null });
@@ -41,21 +41,39 @@ const CarPool = () => {
 
     setMapCenter(coordinates);
   };
-  const handleDecrement = () => {if(value>1)setValue(value-1)}
-  const handleIncrement = () => {setValue(value+1)}
+  const handleDecrement = () => {
+    if (value > 1) setValue(value - 1);
+  };
+  const handleIncrement = () => {
+    setValue(value + 1);
+  };
 
-  const handleSearchRide = async() => {
-    if (start.lat && end.lat) {
-      try{
-        await createRide(start.lat, start.lng, end.lat,end.lng, value)
-      }
-      catch (error){
-        Alert.error("Error creating ride")
-      }
-      //navigate(`/search-ride?startLat=${start.lat}&startLng=${start.lng}&endLat=${end.lat}&endLng=${end.lng}`);
-    } else {
+  const handleSearchRide = () => {
+    if (!start.lat || !end.lat) {
       alert("Please select both start and end locations.");
+      return;
     }
+    else{
+      user_type == "commuter" ? joinCarPool():createCarPool();
+    }
+  };
+  
+  const joinCarPool = async() => {
+    try {
+      const res = await searchRide(start.lat, start.lng, end.lat, end.lng, value);
+      Alert.success(res.data);
+    } catch (error) {
+      Alert.error("Error joining ride");
+    }
+  };
+
+  const createCarPool = async () => {
+      try {
+        const res = await createRide(start.lat, start.lng, end.lat, end.lng, value);
+        Alert.success(res.message);
+      } catch (error) {
+        Alert.error("Error creating ride");
+      }
   };
 
   return (
@@ -98,10 +116,10 @@ const CarPool = () => {
           </Autocomplete>
           <p>No of Seats</p>
           <button onClick={handleDecrement}>-</button>
-          <p style={{ color: 'black' }}>{value}</p>
+          <p style={{ color: "black" }}>{value}</p>
           <button onClick={handleIncrement}>+</button>
           <button className="search-button" onClick={handleSearchRide}>
-            {user_type == "commuter"?'Join Ride': "Create Ride"}
+            {user_type == "commuter" ? "Join Ride" : "Create Ride"}
           </button>
         </div>
       </div>
