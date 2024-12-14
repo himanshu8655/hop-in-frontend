@@ -19,10 +19,6 @@ const HomePage = () => {
       <div className="map-container">
         <CarPool />
       </div>
-
-      <footer className="landing-footer">
-        <p>&copy; 2024 Hop-In. All rights reserved.</p>
-      </footer>
     </div>
   );
 };

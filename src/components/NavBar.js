@@ -9,8 +9,6 @@ import { logout } from "../service/AuthService";
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
-  const user_type = sessionStorage.getItem("user_type")
-  console.log(user_type)
   const handleLogout = () => {
     logout(navigate);
   };
@@ -23,15 +21,6 @@ const NavbarComponent = () => {
         </Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            {user_type == "carpool-owner" ? (
-              <Nav.Link as={Link} to="/create-ride" className="nav-link">
-                Create Ride
-              </Nav.Link>
-            ) : (
-              <Nav.Link as={Link} to="/join-ride" className="nav-link">
-                Join Ride
-              </Nav.Link>
-            )}
             <Nav.Link as={Link} to="/ride-history" className="nav-link">
               Ride History
             </Nav.Link>

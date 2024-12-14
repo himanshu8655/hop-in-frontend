@@ -16,6 +16,7 @@ const containerStyle = {
   position: "relative",
 };
 const MAPS_API = process.env.REACT_APP_MAPS_API;
+const user_type = sessionStorage.getItem("user_type")
 
 const CarPool = () => {
   const [start, setStart] = useState({ lat: null, lng: null });
@@ -100,7 +101,7 @@ const CarPool = () => {
           <p style={{ color: 'black' }}>{value}</p>
           <button onClick={handleIncrement}>+</button>
           <button className="search-button" onClick={handleSearchRide}>
-            Search for Ride
+            {user_type == "commuter"?'Join Ride': "Create Ride"}
           </button>
         </div>
       </div>
