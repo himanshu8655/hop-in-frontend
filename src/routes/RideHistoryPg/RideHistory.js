@@ -13,7 +13,7 @@ const RideHistory = () => {
 
   const rideHistoryList = [
     {
-      ride_id: "RIDE123",
+      ride_id: "3",
       carpool_owner_id: "OWNER456",
       status: "Completed",
       total_seats: 4,

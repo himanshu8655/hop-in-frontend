@@ -1,42 +1,46 @@
+import { useEffect, useState } from "react";
 import RatingCard from "../../components/RatingCard";
+import axios from "axios";
 
 const Rating = () => {
-    const ratingData = [
-        {
-          rfc_id: "1",
-          rfc_description: "Great ride, smooth experience!",
-          ride_id: "101",
-          user_id: "user_001",
-          date: "2024-12-01",
-          rating: 5,
-        },
-        {
-          rfc_id: "2",
-          rfc_description: "Driver was late, please improve punctuality.",
-          ride_id: "102",
-          user_id: "user_002",
-          date: "2024-12-02",
-          rating: 3,
-        },
-        {
-          rfc_id: "3",
-          rfc_description: "No complaints, happy with the service.",
-          ride_id: "103",
-          user_id: "user_003",
-          date: "2024-12-03",
-          rating: 4,
-        },
-      ];
-    return (
-        <div>
-  <h1 style={{ textAlign: "center" }}>Ratings, Feedback, & Complaints</h1>
-  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {ratingData.map((data) => (
-              <RatingCard key={data.rfc_id} {...data} />
-            ))}
-          </div>
-        </div>
-      )
+  const API_URL = process.env.REACT_APP_API_URL;
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.post(`${API_URL}/hopin/getreview`,{user_id: parseInt(sessionStorage.getItem("userId"))});
+        if (response.data.success) {
+          setReviews(response.data.data); // Set the actual reviews data from the API response
+        } else {
+          console.error("Failed to fetch reviews");
+        }
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+
+    fetchReviews();
+  }, [API_URL]); // Empty dependency array ensures this runs once when the component mounts
+
+  return (
+    <div>
+      <h1 style={{ textAlign: "center" }}>Ratings, Feedback, & Complaints</h1>
+      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        {reviews.map((review) => (
+          <RatingCard
+            key={review._id} // Use the unique _id as the key
+            rfc_id={review._id}
+            rfc_description={review.description}
+            ride_id={review.ride_id}
+            user_id={review.user_id}
+            date={new Date(review.created_at).toLocaleDateString()} // Format the date as needed
+            rating={review.rating}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Rating;

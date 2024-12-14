@@ -1,4 +1,5 @@
 import axios from "axios";
+import { use } from "react";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -64,6 +65,25 @@ export const createRide = async (
         "Unable to process your request. Please try again later."
       );
     }
+  }
+};
+
+
+export const writeReview = async (ride_id, rating, description) => {
+  try {
+    const response = await axios.post(`${API_URL}/hopin/review`, {
+      ride_id: parseInt(ride_id),
+      rating: rating,
+      user_id: parseInt(sessionStorage.getItem("userId")),
+      description: description
+    });
+    if (response.data.success) {
+      return { success: true, message: response.data.message };
+    } else {
+      return { success: false, message: response.data.message };
+    }
+  } catch (error) {
+    return { success: false, message: 'An error occurred while submitting the review.' };
   }
 };
 
