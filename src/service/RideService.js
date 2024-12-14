@@ -52,3 +52,25 @@ export const createRide = async (startLat, startLng, endLat, endLng, noOfSeats) 
     }
   }
 };
+
+export const fetchActiveRide = async () => {
+  try {
+    const response = await axios.post(`${API_URL}/hopin/active-ride`, {
+      uid: sessionStorage.getItem("userId"),
+      user_type: sessionStorage.getItem("user_type"),
+    });
+
+    if (response.data) {
+      console.log("Active ride details:", response.data);
+      return response.data;
+    }
+  } catch (error) {
+    if (error.response) {
+      console.error("Error response:", error.response.data);
+      throw new Error(error.response.data.message || "Failed to fetch active ride details.");
+    } else {
+      console.error("Request error:", error.message);
+      throw new Error("Unable to process your request. Please try again later.");
+    }
+  }
+}

@@ -44,7 +44,7 @@ const App = () => {
           }
         />
         <Route
-          path="/search-ride"
+          path="/active-ride"
           element={
             <ProtectedRoute
               element={<SearchRide />}
