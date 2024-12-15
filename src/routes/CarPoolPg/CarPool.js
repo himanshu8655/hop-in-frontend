@@ -81,6 +81,7 @@ const CarPool = () => {
       try {
         const res = await createRide(start.lat, start.lng, end.lat, end.lng, value);
         Alert.success(res.message);
+        navigate("/active-ride");
       } catch (error) {
         Alert.error("Error creating ride");
       }

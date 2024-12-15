@@ -111,3 +111,46 @@ export const fetchActiveRide = async () => {
     }
   }
 };
+
+export const updateRideStatus = async (rideStatus, rideId) => {
+  try {
+    const response = await axios.post(`${API_URL}/hopin/ridestatus`, {
+      ride_status: rideStatus,
+      ride_id: rideId,
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response.data.success) {
+      console.log("Ride status updated:", response.data.data);
+      return response.data;
+    }
+  } catch (error) {
+    if (error.response) {
+      console.error("Error response:", error.response.data);
+      throw new Error(
+        error.response.data.message || "Failed to update ride status."
+      );
+    } else {
+      console.error("Request error:", error.message);
+      throw new Error(
+        "Unable to process your request. Please try again later."
+      );
+    }
+  }
+};
+
+
+export const getRideHistory = async (uid) => {
+  try {
+    const response = await axios.post("http://localhost:8000/hopin/ridehistory", {
+      uid: uid
+    });
+    return response.data.data; // Returns the data from the API
+  } catch (error) {
+    console.error("Error fetching ride history:", error.message);
+    throw error; // Propagate error for handling in components
+  }
+};
