@@ -24,8 +24,7 @@ const RideHistory = () => {
   useEffect(() => {
     const fetchRideHistory = async () => {
       try {
-        const uid = 14; // Replace with dynamic user ID if needed
-        const data = await getRideHistory(uid);
+        const data = await getRideHistory(sessionStorage.getItem("userId"));
         setRideHistoryList(data); // Set fetched data to state
       } catch (err) {
         setError("Failed to load ride history"); // Set error message

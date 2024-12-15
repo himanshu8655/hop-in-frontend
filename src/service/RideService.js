@@ -144,8 +144,9 @@ export const updateRideStatus = async (rideStatus, rideId) => {
 
 
 export const getRideHistory = async (uid) => {
+  console.log(uid)
   try {
-    const response = await axios.post("http://localhost:8000/hopin/ridehistory", {
+    const response = await axios.post(`${API_URL}/hopin/ridehistory`, {
       uid: uid
     });
     return response.data.data; // Returns the data from the API

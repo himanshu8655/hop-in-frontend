@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  Autocomplete,
-  Marker,
-} from "@react-google-maps/api";
+import React, { useState, useEffect } from "react";
+import { GoogleMap, useJsApiLoader, Autocomplete, Marker } from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
 import "./CarPool.css";
 import { createRide, searchRide } from "../../service/RideService";
@@ -21,9 +16,20 @@ const user_type = sessionStorage.getItem("user_type");
 const CarPool = () => {
   const [start, setStart] = useState({ lat: null, lng: null });
   const [end, setEnd] = useState({ lat: null, lng: null });
-  const [mapCenter, setMapCenter] = useState({ lat: 40.7113, lng: -74.0052 });
-  const navigate = useNavigate();
+  const [mapCenter, setMapCenter] = useState(
+    JSON.parse(sessionStorage.getItem("mapCenter")) || { lat: 40.7113, lng: -74.0052 }
+  );
   const [value, setValue] = useState(1);
+  const navigate = useNavigate();
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: MAPS_API,
+    libraries: ["places"],
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem("mapCenter", JSON.stringify(mapCenter));
+  }, [mapCenter]);
 
   const handlePlaceSelected = (place, type) => {
     if (!place || !place.geometry) {
@@ -48,29 +54,26 @@ const CarPool = () => {
   };
 
   const handleIncrement = () => {
-    if(value < 5)
-    setValue(value + 1);
+    if (value < 5) setValue(value + 1);
   };
 
-  const handleSearchRide = async() => {
+  const handleSearchRide = async () => {
     if (!start.lat || !end.lat) {
-      Alert.error("Select start and end location")
-    }
-    else{
-      user_type == "commuter" ? joinCarPool():createCarPool();
+      Alert.error("Select start and end location");
+    } else {
+      user_type === "commuter" ? joinCarPool() : createCarPool();
     }
   };
-  
-  const joinCarPool = async() => {
+
+  const joinCarPool = async () => {
     try {
       const res = await searchRide(start.lat, start.lng, end.lat, end.lng, value);
-      console.log(res.data)
-      if(typeof res.data === "string"){
+      console.log(res.data);
+      if (typeof res.data === "string") {
         Alert.error(res.data);
-      }
-      else{
+      } else {
         Alert.success("Ride found Successfully");
-        navigate("/active-ride")
+        navigate("/active-ride");
       }
     } catch (error) {
       Alert.error("Error joining ride");
@@ -78,65 +81,74 @@ const CarPool = () => {
   };
 
   const createCarPool = async () => {
-      try {
-        const res = await createRide(start.lat, start.lng, end.lat, end.lng, value);
-        Alert.success(res.message);
-        navigate("/active-ride");
-      } catch (error) {
-        Alert.error("Error creating ride");
-      }
+    try {
+      const res = await createRide(start.lat, start.lng, end.lat, end.lng, value);
+      Alert.success(res.message);
+      navigate("/active-ride");
+    } catch (error) {
+      Alert.error("Error creating ride");
+    }
   };
 
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <LoadScript googleMapsApiKey={MAPS_API} libraries={["places"]}>
-      <div style={{ position: "relative" }}>
-        <GoogleMap mapContainerStyle={containerStyle} center={mapCenter} zoom={13}>
-          {start.lat && <Marker position={start} />}
-          {end.lat && <Marker position={end} />}
-        </GoogleMap>
+    <div style={{ position: "relative" }}>
+      <GoogleMap
+        key={JSON.stringify(mapCenter)} // Forces remount only when mapCenter changes
+        mapContainerStyle={containerStyle}
+        center={mapCenter}
+        zoom={13}
+      >
+        {start.lat && <Marker position={start} />}
+        {end.lat && <Marker position={end} />}
+      </GoogleMap>
 
-        <div className="form-container">
-          <Autocomplete
-            onPlaceChanged={() =>
-              handlePlaceSelected(window.autocompleteStart.getPlace(), "start")
-            }
-            onLoad={(autocomplete) => (window.autocompleteStart = autocomplete)}
-          >
-            <input
-              type="text"
-              placeholder="Enter Start Location"
-              className="input-field"
-            />
-          </Autocomplete>
+      <div className="form-container">
+        <Autocomplete
+          onPlaceChanged={() =>
+            handlePlaceSelected(window.autocompleteStart.getPlace(), "start")
+          }
+          onLoad={(autocomplete) => (window.autocompleteStart = autocomplete)}
+        >
+          <input
+            type="text"
+            placeholder="Enter Start Location"
+            className="input-field"
+          />
+        </Autocomplete>
 
-          <Autocomplete
-            onPlaceChanged={() =>
-              handlePlaceSelected(window.autocompleteEnd.getPlace(), "end")
-            }
-            onLoad={(autocomplete) => (window.autocompleteEnd = autocomplete)}
-          >
-            <input
-              type="text"
-              placeholder="Enter End Location"
-              className="input-field"
-            />
-          </Autocomplete>
+        <Autocomplete
+          onPlaceChanged={() =>
+            handlePlaceSelected(window.autocompleteEnd.getPlace(), "end")
+          }
+          onLoad={(autocomplete) => (window.autocompleteEnd = autocomplete)}
+        >
+          <input
+            type="text"
+            placeholder="Enter End Location"
+            className="input-field"
+          />
+        </Autocomplete>
 
-         {user_type !== "commuter"? <div className="seat-selection">
+        {user_type !== "commuter" ? (
+          <div className="seat-selection">
             <label>No of Seats</label>
             <div className="seat-controls">
               <button onClick={handleDecrement}>-</button>
               <p>{value}</p>
               <button onClick={handleIncrement}>+</button>
             </div>
-          </div>:null}
+          </div>
+        ) : null}
 
-          <button className="search-button" onClick={handleSearchRide}>
-            {user_type === "commuter" ? "Join Ride" : "Create Ride"}
-          </button>
-        </div>
+        <button className="search-button" onClick={handleSearchRide}>
+          {user_type === "commuter" ? "Join Ride" : "Create Ride"}
+        </button>
       </div>
-    </LoadScript>
+    </div>
   );
 };
 
