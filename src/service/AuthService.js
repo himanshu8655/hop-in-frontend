@@ -79,7 +79,7 @@ export const forgotPassword = async (email) => {
     });
 
     if (response.data.message) {
-      Alert.success(response.data.message);
+     return response.data;
     } else {
       Alert.info(
         "If the email is registered, you'll receive a reset link shortly."
@@ -87,9 +87,9 @@ export const forgotPassword = async (email) => {
     }
   } catch (error) {
     if (error.response) {
-      Alert.error(error.response.data.message || "Failed to send reset email.");
+      return "Failed to send reset email.";
     } else {
-      Alert.error("Unable to process your request. Please try again later.");
+      return "Unable to process your request. Please try again later.";
     }
   }
 };
