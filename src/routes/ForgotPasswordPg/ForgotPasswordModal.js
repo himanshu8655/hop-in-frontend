@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import './ForgotPasswordModal.css';
 import { forgotPassword } from '../../service/AuthService';
+import { Alert } from '../../components/Alert';
 
 const ForgotPasswordModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
 
   const handleForgotPassword = async(e) => {
     e.preventDefault();
-    await forgotPassword(email);
     onClose();
+    await forgotPassword(email).then(data=>{
+      Alert.success(data.message);
+    },err=>{
+      Alert.error("User does not exist");
+    });
+
   };
 
   if (!isOpen) return null;
