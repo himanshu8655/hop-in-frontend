@@ -11,9 +11,9 @@ const containerStyle = {
   position: "relative",
 };
 const MAPS_API = process.env.REACT_APP_MAPS_API;
-const user_type = sessionStorage.getItem("user_type");
 
 const CarPool = () => {
+  const user_type = sessionStorage.getItem("user_type");
   const [start, setStart] = useState({ lat: null, lng: null });
   const [end, setEnd] = useState({ lat: null, lng: null });
   const [mapCenter, setMapCenter] = useState(
@@ -133,7 +133,7 @@ const CarPool = () => {
           />
         </Autocomplete>
 
-        {user_type !== "commuter" ? (
+        {sessionStorage.getItem("user_type") != "commuter" ? (
           <div className="seat-selection">
             <label>No of Seats</label>
             <div className="seat-controls">
@@ -145,7 +145,7 @@ const CarPool = () => {
         ) : null}
 
         <button className="search-button" onClick={handleSearchRide}>
-          {user_type === "commuter" ? "Join Ride" : "Create Ride"}
+          {sessionStorage.getItem("user_type") == "commuter" ? "Join Ride" : "Create Ride"}
         </button>
       </div>
     </div>
