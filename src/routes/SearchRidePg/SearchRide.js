@@ -130,7 +130,6 @@ const SearchRide = () => {
       ) : (
         <p style={{ textAlign: "center" }}>No active rides available.</p>
       )}
-      <Message />
     </div>
   );
 };

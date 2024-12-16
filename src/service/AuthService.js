@@ -42,7 +42,6 @@ export const login = async (email, password) => {
     });
 
     if (!response.data.token || !response.data.uid) {
-      console.log("uid nit fdound")
       throw new Error("Login failed: Missing token or user ID");
     }
 

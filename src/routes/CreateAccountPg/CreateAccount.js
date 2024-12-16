@@ -80,14 +80,14 @@ const CreateAccount = () => {
           pattern="[0-9]{10}"
           required
         />
-        <div className="image-upload">
+        {/* <div className="image-upload">
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
           />
           {image && <img src={image} alt="Preview" className="image-preview" />}
-        </div>
+        </div> */}
         <button type="submit">Sign Up</button>
         <button
           type="button"
